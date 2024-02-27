@@ -16,8 +16,10 @@ df_sorted = Year_House.groupby('Year').sum()
 '''Here shows two columns Year and GDP (in USD) and then we remove the rows where 
 the elements are Nan. This show the data from 2004 like the first dataframe.'''
 
-df2['GDP (in USD)']=df2['GDP (in USD)'].str.replace(' billion', '') # removes the string 'billion' from the column GDP (in USD)
-
-GDB_Year = df2[['Year', 'GDP (in USD)']].iloc[8:].dropna().astype(float)
-
-print(GDB_Year)
+df2['GDP (in USD)']=df2['GDP (in USD)'].str.replace(' billion', '').astype(float)# removes the string 'billion' from the column GDP (in USD) and make it float
+#print(df2)
+df2['Year'] = df2['Year'].astype(int) # The data-type is converted to integer
+GDB_Year = df2[['Year', 'GDP (in USD)', 'Country']].iloc[8:].dropna() # add one more column
+GDB_Year=GDB_Year.set_index('Country') # make the country as index
+GDB_Palestine = GDB_Year.loc['Palestine']
+GDB_Israel = GDB_Year.loc['Israel']
